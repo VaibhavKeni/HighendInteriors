@@ -5,7 +5,7 @@ function App() {
     <div className="app">
       <nav className="navbar">
         <div className="nav-container">
-          <h1 ><img className="logo" src="/logo.png" al="Logo" />
+          <h1 ><img className="logo" src="/logo.png" alt="Logo" />
           <img className="highend" src="/high_end.png" alt="HIGH END" /><span className="logo-interiors">Interiors</span></h1>
           <ul className="nav-links">
             <li><a href="#home">Home</a></li>
