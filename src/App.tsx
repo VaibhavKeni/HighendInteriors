@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './App.css'
 import 'animate.css'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import CitiesSlider from './components/Slider'
 
 function App() {
-  const [showModal, setShowModal] = useState(false)
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' })
+  const [dreamFormData, setDreamFormData] = useState({ name: '', phone: '', floorPlan: '', budget: '' })
   const [statusModal, setStatusModal] = useState({ show: false, type: '', message: '' })
   const [isLoading, setIsLoading] = useState(false)
+  const [activeTab, setActiveTab] = useState('home')
+  const [showQuoteModal, setShowQuoteModal] = useState(false)
   
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -34,7 +40,6 @@ function App() {
         setStatusModal({ show: true, type: 'success', message: 'Quote sent successfully!' })
         setFormData({ name: '', email: '', phone: '', message: '' })
         setTimeout(() => {
-          setShowModal(false)
           setStatusModal({ show: false, type: '', message: '' })
         }, 30000)
       } else {
@@ -57,7 +62,63 @@ function App() {
     const text = `Name: ${name}%0AEmail: ${email}%0APhone: ${phone}%0AMessage: ${message}`
     window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank')
     setFormData({ name: '', email: '', phone: '', message: '' })
-    setShowModal(false)
+  }
+
+  const handleNavClick = (tabName: string, path?: string) => {
+    setActiveTab(tabName)
+    if (path) {
+      navigate(path)
+    } else {
+      const sectionId = tabName === 'home' ? 'home' : tabName
+      const element = document.getElementById(sectionId)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  }
+
+  const handleDreamFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
+    setDreamFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handleDreamFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    const { name, phone, floorPlan, budget } = dreamFormData
+    if (!name || !phone || !floorPlan || !budget ) {
+      setStatusModal({ show: true, type: 'error', message: 'Please fill all fields' })
+      return
+    }
+    setIsLoading(true)
+    try {
+      const response = await fetch('http://localhost:3001/api/send-callback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, floorPlan, budget})
+      })
+      const data = await response.json()
+      setIsLoading(false)
+      if (data.success) {
+        setStatusModal({ show: true, type: 'success', message: 'Callback request sent successfully!' })
+        setDreamFormData({ name: '', phone: '', floorPlan: '', budget: '' })
+        setTimeout(() => {
+          setStatusModal({ show: false, type: '', message: '' })
+        }, 3000)
+      } else {
+        setStatusModal({ show: true, type: 'error', message: 'Failed to send callback request' })
+      }
+    } catch (error) {
+      setIsLoading(false)
+      // Fallback: Send via WhatsApp
+      const whatsappNumber = '919867818123'
+      const text = `Hi, I want to book a callback.%0AName: ${name}%0APhone: ${phone}%0AFloor Plan: ${floorPlan}%0ABudget: ${budget}%0ACity: ${city}`
+      window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank')
+      setStatusModal({ show: true, type: 'success', message: 'Opening WhatsApp...' })
+      setDreamFormData({ name: '', phone: '', floorPlan: '', budget: '' })
+      setTimeout(() => {
+        setStatusModal({ show: false, type: '', message: '' })
+      }, 2000)
+    }
   }
 
   useEffect(() => {
@@ -111,103 +172,52 @@ function App() {
         </div>
       </div>
 
-      <nav className="navbar navbar-expand-lg navbar-light bg-white sticky-top">
-        <div className="container-fluid px-4">
-          <h1 className="logo-container d-flex align-items-center">
-            <img className="logo" src="/logo.png" alt="Logo" onError={(e) => e.currentTarget.style.display = 'none'} />
-            <img className="highend" src="/high_end.png" alt="HIGH END" onError={(e) => e.currentTarget.style.display = 'none'} />
-            <span className="logo-interiors">Interiors</span>
-          </h1>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto">
-              <li className="nav-item"><a className="nav-link" href="#home">Home</a></li>
-              <li className="nav-item"><a className="nav-link" href="#about">About us</a></li>
-              <li className="nav-item"><a className="nav-link" href="#services">Services</a></li>
-              <li className="nav-item"><a className="nav-link" href="#portfolio">Portfolio</a></li>
-              <li className="nav-item"><a className="nav-link" href="#testimonials">Testimonials</a></li>
-              <li className="nav-item"><a className="nav-link" href="#contact">Contact</a></li>
-            </ul>
-          </div>
-          <button className="btn btn-primary ms-3" onClick={() => setShowModal(true)}>Get a Quote</button>
-        </div>
-      </nav>
+      <Navbar onQuoteClick={() => setShowQuoteModal(true)} />
 
       <CitiesSlider />
 
-      <section className="about-section py-5" id="about">
+      <section className="about-section py-4 py-md-5" id="about">
         <div className="container">
-          <div className="row g-5 align-items-center">
+          <div className="row g-4 g-md-5 align-items-center">
             <div className="col-lg-6" data-animation="animate__fadeInLeft">
               <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" className="img-fluid rounded" alt="About" />
             </div>
             <div className="col-lg-6" data-animation="animate__fadeInRight">
-              <h2 className="mb-4">About HIGH END Interiors</h2>
-              <p>We are a leading interior design firm specializing in residential and commercial spaces. With over 15 years of experience, we transform ordinary spaces into extraordinary living experiences.</p>
-              <p>Our team of expert designers and craftsmen work closely with clients to understand their vision and bring it to life with precision and creativity.</p>
-              <ul className="list-unstyled">
-                <li className="mb-2"><i className="fas fa-check text-primary me-2"></i>Customized Design Solutions</li>
-                <li className="mb-2"><i className="fas fa-check text-primary me-2"></i>Premium Quality Materials</li>
-                <li className="mb-2"><i className="fas fa-check text-primary me-2"></i>Timely Project Delivery</li>
-                <li className="mb-2"><i className="fas fa-check text-primary me-2"></i>End-to-End Execution</li>
+              <h2 className="section-title mb-3 mb-md-4">About HIGH END Interiors</h2>
+              <p className="section-text mb-2 mb-md-3">We are a leading interior design firm specializing in residential and commercial spaces. With over 15 years of experience, we transform ordinary spaces into extraordinary living experiences.</p>
+              <p className="section-text mb-3 mb-md-4">Our team of expert designers and craftsmen work closely with clients to understand their vision and bring it to life with precision and creativity.</p>
+              <ul className="section-list list-unstyled">
+                <li className="section-list-item mb-2"><i className="fas fa-check text-primary me-2"></i>Customized Design Solutions</li>
+                <li className="section-list-item mb-2"><i className="fas fa-check text-primary me-2"></i>Premium Quality Materials</li>
+                <li className="section-list-item mb-2"><i className="fas fa-check text-primary me-2"></i>Timely Project Delivery</li>
+                <li className="section-list-item mb-2"><i className="fas fa-check text-primary me-2"></i>End-to-End Execution</li>
               </ul>
-              <button className="btn btn-primary mt-3">Learn More</button>
+              <button className="btn btn-primary mt-3" onClick={() => navigate('/about')}>Learn More</button>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="services-section py-5 bg-light" id="services">
+      <section className="why-choose-section py-4 py-md-5" id="why-choose">
         <div className="container">
-          <div className="text-center mb-5" data-animation="animate__fadeInUp">
-            <h2>Our Services</h2>
-            <p className="text-muted">Complete Interior Solutions for Every Space</p>
+          <div className="text-center mb-4 mb-md-5" data-animation="animate__fadeInUp">
+            <h2 className="section-title">Why Choose HIGH END Interiors</h2>
+            <p className="section-subtitle">What Sets Us Apart</p>
           </div>
-          <div className="row g-4">
+          <div className="row g-3 g-md-4">
             {[
-              { icon: '🏠', title: 'Residential Interior', desc: 'Complete home interior design including living rooms, bedrooms, kitchens, and more' },
-              { icon: '🏢', title: 'Commercial Spaces', desc: 'Office interiors, retail spaces, and commercial establishments' },
-              { icon: '🪑', title: 'Modular Kitchen', desc: 'Custom modular kitchen designs with premium fittings and accessories' },
-              { icon: '🛏️', title: 'Bedroom Design', desc: 'Luxurious bedroom interiors with wardrobes and storage solutions' },
-              { icon: '🛋️', title: 'Living Room', desc: 'Elegant living room designs with TV units and entertainment areas' },
-              { icon: '💼', title: 'Consultation', desc: 'Expert design consultation and 3D visualization services' }
-            ].map((service, index) => (
-              <div key={index} className="col-lg-4 col-md-6" data-animation="animate__fadeInUp">
-                <div className="service-card bg-white p-4 rounded text-center h-100">
-                  <div className="service-icon fs-1 mb-3">{service.icon}</div>
-                  <h5>{service.title}</h5>
-                  <p className="text-muted">{service.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="portfolio-section py-5" id="portfolio">
-        <div className="container">
-          <div className="text-center mb-5" data-animation="animate__fadeInUp">
-            <h2>Our Portfolio</h2>
-            <p className="text-muted">Explore Our Recent Projects</p>
-          </div>
-          <div className="row g-4">
-            {[
-              { img: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=80', title: 'Modern Living Room', cat: 'Residential' },
-              { img: 'https://images.unsplash.com/photo-1556912173-46c336c7fd55?w=800&q=80', title: 'Luxury Kitchen', cat: 'Modular Kitchen' },
-              { img: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80', title: 'Elegant Bedroom', cat: 'Master Bedroom' },
-              { img: 'https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&q=80', title: 'Contemporary Office', cat: 'Commercial' },
-              { img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80', title: 'Dining Area', cat: 'Residential' },
-              { img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80', title: 'Kids Room', cat: 'Children Bedroom' }
+              { icon: '⭐', title: 'Expert Team', desc: 'Experienced designers with 15+ years in the industry' },
+              { icon: '🎨', title: 'Custom Design', desc: 'Personalized solutions tailored to your style and budget' },
+              { icon: '⚡', title: 'On-Time Delivery', desc: 'Committed to meeting project deadlines without compromise' },
+              { icon: '💎', title: 'Premium Quality', desc: 'Only finest materials and craftsmanship used' },
+              { icon: '🔧', title: 'End-to-End Service', desc: 'From concept to completion, we handle everything' },
+              { icon: '✅', title: 'Warranty Support', desc: '2-year warranty on all workmanship and materials' }
             ].map((item, index) => (
               <div key={index} className="col-lg-4 col-md-6" data-animation="animate__fadeInUp">
-                <div className="portfolio-item position-relative overflow-hidden rounded">
-                  <img src={item.img} className="img-fluid w-100" alt={item.title} />
-                  <div className="portfolio-overlay position-absolute bottom-0 start-0 w-100 p-4">
-                    <h5 className="text-white">{item.title}</h5>
-                    <p className="text-primary">{item.cat}</p>
-                  </div>
+                <div className="why-choose-card bg-white p-3 p-md-4 rounded text-center h-100">
+                  <div className="why-choose-icon fs-1 mb-2 mb-md-3">{item.icon}</div>
+                  <h5 className="card-title">{item.title}</h5>
+                  <p className="card-text text-muted mb-0">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -215,37 +225,102 @@ function App() {
         </div>
       </section>
 
-      <section className="testimonials-section py-5 bg-light" id="testimonials">
+      <section className="process-section py-4 py-md-5 bg-light" id="process">
         <div className="container">
-          <div className="text-center mb-5" data-animation="animate__fadeInUp">
-            <h2>What Our Clients Say</h2>
-            <p className="text-muted">Google Reviews from Our Happy Clients</p>
+          <div className="text-center mb-4 mb-md-5" data-animation="animate__fadeInUp">
+            <h2 className="section-title">Our Design Process</h2>
+            <p className="section-subtitle">From Concept to Completion</p>
           </div>
-
-          {/* <div className="row g-4">
+          <div className="row g-3 g-md-4">
             {[
-              { name: 'Rajesh Kumar', role: 'Homeowner', rating: 5, text: 'HIGHEND Interiors transformed our home beautifully. The attention to detail and quality of work exceeded our expectations. Highly recommended!' },
-              { name: 'Priya Sharma', role: 'Business Owner', rating: 5, text: 'Professional team with excellent design sense. They completed our office interior on time and within budget. Very satisfied with the results.' },
-              { name: 'Amit Patel', role: 'Homeowner', rating: 5, text: 'The modular kitchen they designed is both functional and stylish. Great quality materials and perfect execution. Worth every penny!' }
-            ].map((testimonial, index) => (
-              <div key={index} className="col-lg-4" data-animation="animate__fadeInUp">
-                <div className="testimonial-card bg-white p-4 rounded">
-                  <div className="mb-2">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <span key={i} className="text-warning fs-5">★</span>
-                    ))}
-                  </div>
-                  <p className="fst-italic">"{testimonial.text}"</p>
-                  <div className="mt-3">
-                    <h6 className="mb-0">{testimonial.name}</h6>
-                    <small className="text-primary">{testimonial.role}</small>
-                  </div>
+              { step: '01', title: 'Consultation', desc: 'Understand your vision, style preferences, and budget requirements' },
+              { step: '02', title: '3D Visualization', desc: 'Create detailed 3D renderings for your approval' },
+              { step: '03', title: 'Design Approval', desc: 'Finalize design with material and color selections' },
+              { step: '04', title: 'Procurement', desc: 'Source premium materials and furnishings' },
+              { step: '05', title: 'Execution', desc: 'Professional installation with minimal disruption' },
+              { step: '06', title: 'Handover', desc: 'Final inspection and project completion' }
+            ].map((item, index) => (
+              <div key={index} className="col-lg-4 col-md-6" data-animation="animate__fadeInUp">
+                <div className="process-card text-center">
+                  <div className="process-step">{item.step}</div>
+                  <h5 className="card-title mt-3 mb-2">{item.title}</h5>
+                  <p className="card-text text-muted mb-0">{item.desc}</p>
                 </div>
               </div>
             ))}
-          </div> */}
+          </div>
+        </div>
+      </section>
 
-          <div className="text-center mt-4">
+      <section className="solutions-section py-4 py-md-5" id="solutions">
+        <div className="container">
+          <div className="text-center mb-4 mb-md-5" data-animation="animate__fadeInUp">
+            <h2 className="solutions-title">A to Z Interior Solutions</h2>
+            <p className="solutions-subtitle">From concept to completion — everything your space needs, under one roof.</p>
+          </div>
+          <div className="row g-3 g-md-4">
+            {[
+              { img: 'src/assets/images/A to Z icons/Modular Kitchen.png', title: 'Modular Kitchen' },
+              { img: 'src/assets/images/A to Z icons/Space Saving Furniture.png', title: 'Space Saving Furniture' },
+              { img: 'src/assets/images/A to Z icons/False Ceiling.png', title: 'False Ceiling' },
+              { img: 'src/assets/images/A to Z icons/Wallpaper.png', title: 'Wallpaper' },
+              { img: 'src/assets/images/A to Z icons/Wall Paint.png', title: 'Wall Paint' },
+              { img: 'src/assets/images/A to Z icons/Dressing Table.png', title: 'Dressing Table' },
+              { img: 'src/assets/images/A to Z icons/Storage & Wardrobe.png', title: 'Storage & Wardrobe' },
+              { img: 'src/assets/images/A to Z icons/TV Units.png', title: 'TV Units' },
+              { img: 'src/assets/images/A to Z icons/Bathroom.png', title: 'Bathroom' },
+              { img: 'src/assets/images/A to Z icons/Study Table.png', title: 'Study Table' },
+              { img: 'src/assets/images/A to Z icons/Movable Furniture.png', title: 'Movable Furniture' },
+              { img: 'src/assets/images/A to Z icons/Light.png', title: 'Lighting' }
+            ].map((item, index) => (
+              <div key={index} className="col-lg-2 col-md-3 col-sm-4 col-6" data-animation="animate__fadeInUp">
+                <div className="solution-card text-center">
+                  <div className="solution-img-wrapper">
+                    <img src={item.img} alt={item.title} className="solution-img" />
+                  </div>
+                  <h6 className="solution-title mt-3">{item.title}</h6>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="partners-section py-4 py-md-5 bg-light" id="partners">
+        <div className="container">
+          <div className="row g-4 g-md-5 align-items-center">
+            <div className="col-lg-6" data-animation="animate__fadeInLeft">
+              <div className="partners-img-wrapper">
+                <img src="src/assets/images/Trusted_Partners/Trusted Partners.png" alt="Trusted Partners" className="partners-img w-100" />
+              </div>
+            </div>
+            <div className="col-lg-6" data-animation="animate__fadeInRight">
+              <div className="partners-content">
+                <h2 className="partners-title mb-3 mb-md-4">Our Trusted Partners</h2>
+                <p className="partners-subtitle mb-3 mb-md-4">We collaborate with industry-leading brands to ensure top-quality materials and lasting performance.</p>
+                <ul className="partners-list list-unstyled mb-4 mb-md-5">
+                  <li className="partners-list-item mb-3" data-animation="animate__fadeInUp"><i className="fas fa-check partners-check-icon me-3"></i><span>Premium Furniture & Fittings</span></li>
+                  <li className="partners-list-item mb-3" data-animation="animate__fadeInUp"><i className="fas fa-check partners-check-icon me-3"></i><span>Elite Paints & Coatings</span></li>
+                  <li className="partners-list-item mb-3" data-animation="animate__fadeInUp"><i className="fas fa-check partners-check-icon me-3"></i><span>Luxury Tiles & Flooring</span></li>
+                  <li className="partners-list-item mb-3" data-animation="animate__fadeInUp"><i className="fas fa-check partners-check-icon me-3"></i><span>Modern Lighting Solutions</span></li>
+                  <li className="partners-list-item mb-3" data-animation="animate__fadeInUp"><i className="fas fa-check partners-check-icon me-3"></i><span>Premium Hardware & Accessories</span></li>
+                  <li className="partners-list-item" data-animation="animate__fadeInUp"><i className="fas fa-check partners-check-icon me-3"></i><span>Eco-Friendly Materials</span></li>
+                </ul>
+                <p className="partners-description">Our partnerships ensure that every project receives the highest quality materials and expert craftsmanship, delivering exceptional results that stand the test of time.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="testimonials-section py-4 py-md-5 bg-light" id="testimonials">
+        <div className="container">
+          <div className="text-center mb-4 mb-md-5" data-animation="animate__fadeInUp">
+            <h2 className="section-title">What Our Clients Say</h2>
+            <p className="section-subtitle">Google Reviews from Our Happy Clients</p>
+          </div>
+
+          <div className="text-center mt-3 mt-md-4">
             <a href="https://maps.app.goo.gl/YraiHXFWgaJHuPpS6" target="_blank" rel="noopener noreferrer" className="btn btn-outline-primary">
               View All Google Reviews
             </a>
@@ -253,123 +328,183 @@ function App() {
         </div>
       </section>
 
-      <section className="contact-section py-5" id="contact">
-        <div className="container">
-          <div className="text-center mb-5" data-animation="animate__fadeInUp">
-            <h2>Get In Touch</h2>
-            <p className="text-muted">Ready to Transform Your Space?</p>
-          </div>
-          <div className="row g-4">
+      <section className="design-dream-section py-4 py-md-5" id="design-dream">
+        <div className="design-dream-bg">
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=80" alt="Luxury Living Room" className="design-dream-img" />
+        </div>
+        <div className="container position-relative" style={{zIndex: 2}}>
+          <div className="row g-4 g-md-5">
             <div className="col-lg-6" data-animation="animate__fadeInLeft">
-              <div className="contact-info">
-                <div className="mb-4">
-                  <h5><i className="fas fa-map-marker-alt text-primary me-2"></i>Address</h5>
-                  <p><b>HIGH END INTERIORS</b></p>
-                  <p> 2 nd floor, Gulshan apartment, 5, Dixit Rd, near Sathye College, Satsang CHSL, Navpada, Vile Parle East, Vile Parle, Mumbai, Maharashtra 400057</p>
-                </div>
-                <div className="mb-4">
-                  <h5><i className="fas fa-phone text-primary me-2"></i>Phone</h5>
-                  <p>+91 83558 88976</p>
-                </div>
-                <div className="mb-4">
-                  <h5><i className="fas fa-envelope text-primary me-2"></i>Email</h5>
-                  <p>highendinteriors9@gmail.com</p>
-                </div>
-                <div className="mb-4">
-                  <h5><i className="fab fa-instagram text-primary me-2"></i>Instagram</h5>
-                  <p><a href="https://www.instagram.com/highend_interiors9" target="_blank" rel="noopener noreferrer" className="text-primary">highend_interiors9</a></p>
-                </div>
-                <div className="mb-4">
-                  <h5><i className="fab fa-facebook text-primary me-2"></i>Facebook</h5>
-                  <p><a href="https://www.facebook.com/profile.php?id=100063596333131" target="_blank" rel="noopener noreferrer" className="text-primary">Proprietor-Gautam Vernekar- Highendinteriors</a></p>
-                </div>
+              <div className="design-form-wrapper">
+                <h4 className="design-form-subtitle mb-2">Let's design your</h4>
+                <h2 className="design-form-title mb-4">Dream Space</h2>
+                
+                <form className="design-form" onSubmit={handleDreamFormSubmit}>
+                  <div className="mb-3">
+                    <input type="text" name="name" className="form-control design-input" placeholder="Full Name" value={dreamFormData.name} onChange={handleDreamFormChange} required />
+                  </div>
+                  <div className="mb-3">
+                    <input type="tel" name="phone" className="form-control design-input" placeholder="Phone No." maxLength={10} minLength={10} value={dreamFormData.phone} onChange={handleDreamFormChange} required />
+                  </div>
+                  <div className="mb-3">
+                    <select name="floorPlan" className="form-select design-input" value={dreamFormData.floorPlan} onChange={handleDreamFormChange} required>
+                      <option value="" disabled>Select Floor plan</option>
+                      <option value="1 BHK">1 BHK</option>
+                      <option value="2 BHK">2 BHK</option>
+                      <option value="3 BHK">3 BHK</option>
+                      <option value="4 BHK">4 BHK</option>
+                      <option value="5 BHK / PENTHOUSE">5 BHK / PENTHOUSE</option>
+                      <option value="Villa">Villa</option>
+                      <option value="Bunglow">Bunglow</option>
+                      <option value="Shop">Shop</option>
+                      <option value="Hotel">Hotel</option>
+                      <option value="Office">Office</option>
+                      <option value="Kitchen">Kitchen</option>
+                      <option value="Bedroom">Bedroom</option>
+                    </select>
+                  </div>
+                  <div className="mb-3">
+                    <select name="budget" className="form-select design-input" value={dreamFormData.budget} onChange={handleDreamFormChange} required>
+                      <option value="" disabled>Budget in mind</option>
+                      <option value="Less than 1 Lakhs">Less than 1 Lakh</option>
+                      <option value="1 - 4 Lakhs">1 - 4 Lakhs</option>
+                      <option value="4 - 6 Lakhs">4 - 6 Lakhs</option>
+                      <option value="6 - 10 Lakhs">6 - 10 Lakhs</option>
+                      <option value="10 - 15 Lakhs">10 - 15 Lakhs</option>
+                      <option value="15 - 20 Lakhs">15 - 20 Lakhs</option>
+                      <option value="20 - 25 Lakhs">20 - 25 Lakhs</option>
+                      <option value="More than 25 Lakhs">More than 25 Lakhs</option>
+                    </select>
+                  </div>
+                  {/* <div className="mb-3">
+                    <div className="city-options">
+                      <label className="city-option">
+                        <input type="radio" name="city" value="Mumbai" checked={dreamFormData.city === 'Mumbai'} onChange={handleDreamFormChange} required />
+                        <span>Mumbai</span>
+                      </label>
+                      <label className="city-option">
+                        <input type="radio" name="city" value="Nagpur" checked={dreamFormData.city === 'Nagpur'} onChange={handleDreamFormChange} />
+                        <span>Nagpur</span>
+                      </label>
+                    </div>
+                  </div> */}
+                  <button type="submit" disabled={isLoading} className="btn btn-primary w-100 design-btn mb-3">
+                    {isLoading ? <>Sending...</> : 'BOOK CALL BACK'}
+                  </button>
+                  <p className="design-privacy-text text-center">✅ We respect your privacy. No spam ever.</p>
+                </form>
               </div>
             </div>
-            {/* <div className="col-lg-6" data-animation="animate__fadeInRight">
-              <form className="contact-form">
-                <div className="mb-3">
-                  <input type="text" className="form-control" placeholder="Your Name" />
-                </div>
-                <div className="mb-3">
-                  <input type="email" className="form-control" placeholder="Your Email" />
-                </div>
-                <div className="mb-3">
-                  <input type="tel" className="form-control" placeholder="Your Phone" />
-                </div>
-                <div className="mb-3">
-                  <textarea className="form-control" rows={5} placeholder="Your Message"></textarea>
-                </div>
-                <button type="submit" className="btn btn-primary w-100">Send Message</button>
-              </form>
+            <div className="col-lg-6" data-animation="animate__fadeInRight">
+              <div className="design-content">
+                <p className="design-tagline">Design, execution, and delivery — all handled seamlessly by experts.</p>
+                <h2 className="design-heading">Hasle free Interiors from start to finish</h2>
+              </div>
             </div>
-           */}
-
-          <div className="col-lg-6" data-animation="animate__fadeInUp">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7167.3060072772205!2d72.8479356!3d19.0989097!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c97fc8df9833%3A0x979626c8639a7eb6!2sHIGHEND%20INTERIORS!5e1!3m2!1sen!2sin!4v1773171439368!5m2!1sen!2sin" 
-              width="100%" 
-              height="450" 
-              style={{border: 0, borderRadius: '10px'}} 
-              allowFullScreen 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
-          </div>
           </div>
         </div>
       </section>
 
-      <footer className="footer bg-dark text-white py-5">
+      <section className="contact-section py-4 py-md-5" id="contact">
         <div className="container">
-          <div className="row g-4">
-            <div className="col-lg-3 col-md-6">
-              <h5 className="text-primary mb-3">HIGH END Interiors</h5>
-              <p>Creating beautiful spaces that inspire and delight.</p>
-            </div>
-            <div className="col-lg-3 col-md-6">
-              <h5 className="text-primary mb-3">Quick Links</h5>
-              <ul className="list-unstyled">
-                <li><a href="#about" className="text-white-50">About Us</a></li>
-                <li><a href="#services" className="text-white-50">Services</a></li>
-                <li><a href="#portfolio" className="text-white-50">Portfolio</a></li>
-                <li><a href="#contact" className="text-white-50">Contact</a></li>
-              </ul>
-            </div>
-            <div className="col-lg-3 col-md-6">
-              <h5 className="text-primary mb-3">Services</h5>
-              <ul className="list-unstyled">
-                <li>Residential Interior</li>
-                <li>Commercial Interior</li>
-                <li>Modular Kitchen</li>
-                <li>Consultation</li>
-              </ul>
-            </div>
-            <div className="col-lg-3 col-md-6">
-              <h5 className="text-primary mb-3">Follow Us</h5>
-              <div className="d-flex gap-2">
-                <a href="https://www.instagram.com/highend_interiors9" target="_blank" rel="noopener noreferrer" className="btn btn-outline-light btn-sm">Instagram</a>
-                <a href="https://www.facebook.com/profile.php?id=100063596333131" className="btn btn-outline-light btn-sm">Facebook</a>
+          <div className="text-center mb-4 mb-md-5" data-animation="animate__fadeInUp">
+            <h2 className="section-title">Get In Touch</h2>
+            <p className="section-subtitle">Ready to Transform Your Space?</p>
+          </div>
+          <div className="row g-3 g-md-4">
+            <div className="col-lg-6" data-animation="animate__fadeInLeft">
+              <div className="contact-info">
+                <div className="mb-3 mb-md-4">
+                  <h5 className="contact-heading"><i className="fas fa-map-marker-alt text-primary me-2"></i>Address</h5>
+                  <p className="contact-text mb-0"><b>HIGH END INTERIORS</b></p>
+                  <p className="contact-text mb-0">2nd floor, Gulshan apartment, 5, Dixit Rd, near Sathye College, Satsang CHSL, Navpada, Vile Parle East, Vile Parle, Mumbai, Maharashtra 400057</p>
+                </div>
+                <div className="mb-3 mb-md-4">
+                  <h5 className="contact-heading"><i className="fas fa-phone text-primary me-2"></i>Phone</h5>
+                  <p className="contact-text mb-0">+91 83558 88976</p>
+                </div>
+                <div className="mb-3 mb-md-4">
+                  <h5 className="contact-heading"><i className="fas fa-envelope text-primary me-2"></i>Email</h5>
+                  <p className="contact-text mb-0">highendinteriors9@gmail.com</p>
+                </div>
+                <div className="mb-3 mb-md-4">
+                  <h5 className="contact-heading"><i className="fab fa-instagram text-primary me-2"></i>Instagram</h5>
+                  <p className="contact-text mb-0"><a href="https://www.instagram.com/highend_interiors9" target="_blank" rel="noopener noreferrer" className="text-primary">highend_interiors9</a></p>
+                </div>
+                <div className="mb-3 mb-md-4">
+                  <h5 className="contact-heading"><i className="fab fa-facebook text-primary me-2"></i>Facebook</h5>
+                  <p className="contact-text mb-0"><a href="https://www.facebook.com/profile.php?id=100063596333131" target="_blank" rel="noopener noreferrer" className="text-primary">Proprietor-Gautam Vernekar- Highendinteriors</a></p>
+                </div>
               </div>
             </div>
-          </div>
-          <hr className="my-4" />
-          <div className="text-center">
-            <p className="mb-0">&copy; 2024 HIGH END Interiors. All rights reserved.</p>
+
+            <div className="col-lg-6" data-animation="animate__fadeInUp">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7167.3060072772205!2d72.8479356!3d19.0989097!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c97fc8df9833%3A0x979626c8639a7eb6!2sHIGHEND%20INTERIORS!5e1!3m2!1sen!2sin!4v1773171439368!5m2!1sen!2sin" 
+                width="100%" 
+                height="450" 
+                style={{border: 0, borderRadius: '10px'}} 
+                allowFullScreen 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
           </div>
         </div>
-      </footer>
+      </section>
+
+      <Footer />
 
       <a href="#" className="btn btn-primary btn-lg-square back-to-top">↑</a>
 
-      {/* Modal */}
-      {showModal && (
+      <div className="mobile-bottom-nav">
+        <button 
+          className={`nav-item ${activeTab === 'home' ? 'active' : ''}`}
+          onClick={() => handleNavClick('home')}
+        >
+          <i className="fas fa-home"></i>
+          <span>Home</span>
+        </button>
+        <button 
+          className={`nav-item ${activeTab === 'gallery' ? 'active' : ''}`}
+          onClick={() => handleNavClick('gallery', '/gallery')}
+        >
+          <i className="fas fa-images"></i>
+          <span>Gallery</span>
+        </button>
+        <button 
+          className={`nav-item book-now-btn ${activeTab === 'book' ? 'active' : ''}`}
+          onClick={() => {
+            setActiveTab('book')
+          }}
+        >
+          <i className="fas fa-calendar-check"></i>
+          <span>Book Now</span>
+        </button>
+        <button 
+          className={`nav-item ${activeTab === 'reviews' ? 'active' : ''}`}
+          onClick={() => handleNavClick('reviews')}
+        >
+          <i className="fas fa-star"></i>
+          <span>Reviews</span>
+        </button>
+        <button 
+          className={`nav-item ${activeTab === 'contact' ? 'active' : ''}`}
+          onClick={() => handleNavClick('contact', '/contact')}
+        >
+          <i className="fas fa-phone-alt"></i>
+          <span>Contact</span>
+        </button>
+      </div>
+
+      {showQuoteModal && (
         <div className="modal-backdrop show" style={{display: 'block'}}>
           <div className="modal show" style={{display: 'block'}}>
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title">Get a Free Quote</h5>
-                  <button type="button" className="btn-close" onClick={() => setShowModal(false)}>X</button>
+                  <button type="button" className="btn-close" onClick={() => setShowQuoteModal(false)}>X</button>
                 </div>
                 <div className="modal-body">
                   <form className="contact-form" onSubmit={handleSubmit}>
@@ -399,13 +534,12 @@ function App() {
         </div>
       )}
 
-      {/* Status Modal */}
       {statusModal.show && (
         <div className="modal-backdrop show" style={{display: 'block'}}>
           <div className="modal show" style={{display: 'block'}}>
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content">
-                <div className="modal-body text-center py-5">
+                <div className="modal-body text-center py-4 py-md-5">
                   <div className="mb-3">
                     {statusModal.type === 'success' ? (
                       <i className="fas fa-check-circle text-success" style={{fontSize: '3rem'}}></i>
