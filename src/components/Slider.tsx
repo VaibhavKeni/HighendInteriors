@@ -1,5 +1,10 @@
 import { useState, useEffect, useCallback } from 'react'
 import './Slider.css'
+import livingRoom from '/assets/images/Dashboard/Living_room.jpg'
+import kitchen from '/assets/images/Dashboard/Kitchen.jpg'
+import bedroom from '/assets/images/Dashboard/Bedroom.jpg'
+import office from '/assets/images/Dashboard/Office.jpg'
+import dining from '/assets/images/Dashboard/Dining.jpg'
 
 interface Slide {
   title: string
@@ -11,27 +16,27 @@ const slides: Slide[] = [
   {
     title: 'Living Room',
     subtitle: 'Modern Design',
-    img: '/assets/images/Dashboard/Living_room.jpg',
+    img: livingRoom,
   },
   {
     title: 'Kitchen',
     subtitle: 'Luxury Modular',
-    img: '/assets/images/Dashboard/Kitchen.jpg',
+    img: kitchen,
   },
   {
     title: 'Bedroom',
     subtitle: 'Elegant Space',
-    img: '/assets/images/Dashboard/Bedroom.jpg',
+    img: bedroom,
   },
   {
     title: 'Office',
     subtitle: 'Contemporary',
-    img: '/assets/images/Dashboard/Office.jpg',
+    img: office,
   },
   {
     title: 'Dining',
     subtitle: 'Premium Interior',
-    img: '/assets/images/Dashboard/Dining.jpg',
+    img: dining,
   },
 ]
 
