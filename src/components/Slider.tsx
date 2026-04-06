@@ -96,9 +96,8 @@ export default function CitiesSlider() {
                   <div
                     className="slider__slide-part-inner"
                     style={{
-                      backgroundImage: `url(${slide.img})`,
                       '--bg-image': `url(${slide.img})`,
-                    } as React.CSSProperties & { '--bg-image': string }}
+                    } as React.CSSProperties}
                   />
                 </div>
               ))}
