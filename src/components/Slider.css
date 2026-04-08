@@ -1,8 +1,8 @@
 .slider {
-  overflow: hidden;
-  position: relative;
-  height: 100vh;
-  color: #fff;
+  overflow: hidden !important;
+  position: relative !important;
+  height: 100vh !important;
+  color: #fff !important;
 }
 
 .slider__top-heading {
