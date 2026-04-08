@@ -73,7 +73,10 @@ export default function CitiesSlider() {
   }, [changeSlides])
 
   return (
-    <div className={`slider ${sliderReady ? 's--ready' : ''}`}>
+    <div className={`slider ${sliderReady ? 's--ready' : ''}`} style={{overflow: "hidden",
+  position: "relative",
+  height: "100vh",
+  color: "#fff" }}> 
       <p className="slider__top-heading">HIGH END <span style={{ fontFamily: "Mistral", textTransform: 'none', fontSize: '40px',letterSpacing: 0 }}>Interiors</span></p>
       <div className="slider__slides">
         {slides.map((slide, index) => (
