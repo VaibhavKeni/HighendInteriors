@@ -133,7 +133,7 @@ function About() {
               </ul>
             </div>
             <div className="partners-image">
-              <img src="src/assets/images/Trusted_Partners/Trusted Partners.png" alt="Trusted Partners" />
+              <img src="assets/images/Trusted_Partners/Trusted Partners.png" alt="Trusted Partners" />
             </div>
           </div>
         </div>
