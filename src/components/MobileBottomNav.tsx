@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
+import './MobileBottomNav.css'
 
 interface MobileBottomNavProps {
   onBookClick?: () => void
