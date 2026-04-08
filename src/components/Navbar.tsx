@@ -128,14 +128,20 @@ function Navbar({ onQuoteClick }: NavbarProps) {
                 Contact
               </a>
             </li>
+            <li className="nav-item mobile-quote-btn">
+              <button 
+                className="btn btn-primary" 
+                onClick={() => {
+                  onQuoteClick?.()
+                  const toggler = document.querySelector('.navbar-toggler') as HTMLButtonElement
+                  toggler?.click()
+                }}
+              >
+                Get a Quote
+              </button>
+            </li>
           </ul>
         </div>
-        <button 
-          className="btn btn-primary ms-2 ms-md-3" 
-          onClick={onQuoteClick}
-        >
-          Get a Quote
-        </button>
       </div>
     </nav>
   )
