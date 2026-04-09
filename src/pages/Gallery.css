@@ -3,7 +3,7 @@
 .gallery-page {
   min-height: 100vh;
   background: #f9f9f9;
-  padding-bottom: 75px;
+  /* padding-bottom: 75px; */
 }
 
 /* Gallery Header */
@@ -608,9 +608,9 @@
 }
 
 @media (max-width: 480px) {
-  .gallery-page {
+  /* .gallery-page {
     padding-bottom: 75px;
-  }
+  } */
 
   .gallery-header {
     padding: 2rem 1rem;

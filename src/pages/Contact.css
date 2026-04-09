@@ -3,7 +3,7 @@
 .contact-page {
   min-height: 100vh;
   background: #f9f9f9;
-  padding-bottom: 75px;
+  /* padding-bottom: 75px; */
 }
 
 /* Contact Header */
@@ -367,9 +367,9 @@
 }
 
 @media (max-width: 480px) {
-  .contact-page {
+  /* .contact-page {
     padding-bottom: 75px;
-  }
+  } */
 
   .contact-header {
     padding: 2rem 1rem;

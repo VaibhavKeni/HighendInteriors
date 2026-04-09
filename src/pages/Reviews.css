@@ -3,7 +3,7 @@
 .reviews-page {
   min-height: 100vh;
   background: #f9f9f9;
-  padding-bottom: 75px;
+  /* padding-bottom: 75px; */
 }
 
 /* Reviews Header */
@@ -455,9 +455,9 @@
 }
 
 @media (max-width: 480px) {
-  .reviews-page {
+  /* .reviews-page {
     padding-bottom: 75px;
-  }
+  } */
 
   .reviews-header {
     padding: 2rem 1rem;

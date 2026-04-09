@@ -3,7 +3,7 @@
 .services-page {
   min-height: 100vh;
   background: #f9f9f9;
-  padding-bottom: 75px;
+  /* padding-bottom: 75px; */
 }
 
 /* Services Header */
@@ -512,9 +512,9 @@
 }
 
 @media (max-width: 480px) {
-  .services-page {
+  /* .services-page {
     padding-bottom: 75px;
-  }
+  } */
 
   .services-header {
     padding: 2rem 1rem;

@@ -3,7 +3,7 @@
 .about-page {
   min-height: 100vh;
   background: #f9f9f9;
-  padding-bottom: 75px;
+  /* padding-bottom: 75px; */
 }
 
 /* About Header */
@@ -507,9 +507,9 @@
 }
 
 @media (max-width: 480px) {
-  .about-page {
+  /* .about-page {
     padding-bottom: 75px;
-  }
+  } */
 
   .about-header {
     padding: 2rem 1rem;

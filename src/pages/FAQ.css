@@ -3,7 +3,7 @@
 .faq-page {
   min-height: 100vh;
   background: #f9f9f9;
-  padding-bottom: 75px;
+  /* padding-bottom: 75px; */
 }
 
 /* FAQ Header */
@@ -344,9 +344,9 @@
 }
 
 @media (max-width: 480px) {
-  .faq-page {
+  /* .faq-page {
     padding-bottom: 75px;
-  }
+  } */
 
   .faq-header {
     padding: 2rem 1rem;
