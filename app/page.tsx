@@ -184,18 +184,18 @@ export default function Home() {
           </div>
           <div className="row g-3 g-md-4">
             {[
-              { img: 'assets/images/A to Z icons/Modular Kitchen.png', title: 'Modular Kitchen' },
-              { img: 'assets/images/A to Z icons/Space Saving Furniture.png', title: 'Space Saving Furniture' },
-              { img: 'assets/images/A to Z icons/False Ceiling.png', title: 'False Ceiling' },
-              { img: 'assets/images/A to Z icons/Wallpaper.png', title: 'Wallpaper' },
-              { img: 'assets/images/A to Z icons/Wall Paint.png', title: 'Wall Paint' },
-              { img: 'assets/images/A to Z icons/Dressing Table.png', title: 'Dressing Table' },
-              { img: 'assets/images/A to Z icons/Storage & Wardrobe.png', title: 'Storage & Wardrobe' },
-              { img: 'assets/images/A to Z icons/TV Units.png', title: 'TV Units' },
-              { img: 'assets/images/A to Z icons/Bathroom.png', title: 'Bathroom' },
-              { img: 'assets/images/A to Z icons/Study Table.png', title: 'Study Table' },
-              { img: 'assets/images/A to Z icons/Movable Furniture.png', title: 'Movable Furniture' },
-              { img: 'assets/images/A to Z icons/Light.png', title: 'Lighting' }
+              { img: '/assets/images/A to Z icons/Modular Kitchen.png', title: 'Modular Kitchen' },
+              { img: '/assets/images/A to Z icons/Space Saving Furniture.png', title: 'Space Saving Furniture' },
+              { img: '/assets/images/A to Z icons/False Ceiling.png', title: 'False Ceiling' },
+              { img: '/assets/images/A to Z icons/Wallpaper.png', title: 'Wallpaper' },
+              { img: '/assets/images/A to Z icons/Wall Paint.png', title: 'Wall Paint' },
+              { img: '/assets/images/A to Z icons/Dressing Table.png', title: 'Dressing Table' },
+              { img: '/assets/images/A to Z icons/Storage & Wardrobe.png', title: 'Storage & Wardrobe' },
+              { img: '/assets/images/A to Z icons/TV Units.png', title: 'TV Units' },
+              { img: '/assets/images/A to Z icons/Bathroom.png', title: 'Bathroom' },
+              { img: '/assets/images/A to Z icons/Study Table.png', title: 'Study Table' },
+              { img: '/assets/images/A to Z icons/Movable Furniture.png', title: 'Movable Furniture' },
+              { img: '/assets/images/A to Z icons/Light.png', title: 'Lighting' }
             ].map((item, index) => (
               <div key={index} className="col-lg-2 col-md-3 col-sm-4 col-6" data-animation="animate__fadeInUp">
                 <div className="solution-card text-center">
