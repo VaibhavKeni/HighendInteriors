@@ -39,10 +39,10 @@ export default function Reviews() {
   }, [])
 
   const stats = [
-    { label: 'Happy Clients', value: '1000+' },
-    { label: 'Projects Completed', value: '500+' },
-    { label: 'Average Rating', value: '4.8/5' },
-    { label: 'Years Experience', value: '15+' },
+    { label: 'Happy Clients', value: '100+' },
+    { label: 'Projects Completed', value: '50+' },
+    { label: 'Average Rating', value: '5/5' },
+    { label: 'Years Experience', value: '10+' },
   ]
 
   return (
