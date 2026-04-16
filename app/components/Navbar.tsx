@@ -42,6 +42,7 @@ export default function Navbar({ onQuoteClick }: NavbarProps) {
               { path: '/about', label: 'About us' },
               { path: '/services', label: 'Services' },
               { path: '/gallery', label: 'Gallery' },
+              { path: '/blog', label: 'Blog' },
               { path: '/reviews', label: 'Reviews' },
               { path: '/faq', label: 'FAQ' },
               { path: '/contact', label: 'Contact' },

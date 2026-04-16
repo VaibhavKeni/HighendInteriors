@@ -152,7 +152,6 @@
 }
 
 .mb-3 {
-  margin-bottom: 0 !important;
   width: 100% !important;
 }
 
@@ -480,9 +479,7 @@ textarea.form-control:focus {
     gap: 1rem !important;
   }
 
-  .mb-3 {
-    margin-bottom: 0 !important;
-  }
+
 
   .form-control {
     padding: 0.8rem 1rem !important;
