@@ -244,7 +244,61 @@ export default function Home() {
             <p className="section-subtitle">Google Reviews from Our Happy Clients</p>
           </div>
 
-          <div className="text-center mt-3 mt-md-4">
+          <div className="row g-3 g-md-4 mb-4 mb-md-5">
+            {[
+              {
+                name: 'Anuradha Vernekar',
+                avatar: 'https://lh3.googleusercontent.com/a-/ALV-UjVj87KZjJ8AB3g2ICVzbSIy3OH_JGuk-RbgLEYTDVEY7TCsyVlD=s120-c-rp-mo-br100',
+                rating: 5,
+                text: 'Great experience working with HIGHEND interiors, great team members....quality work, genuine materials used for my home interior by them, great designs concepts, on-time delivery of projects...affordable quote...I highly recommend HIGHEND interiors for interior projects 👍👍👍'
+              },
+              {
+                name: 'Vaibhav Pavaskar',
+                avatar: 'https://lh3.googleusercontent.com/a-/ALV-UjW-BcNhi9XgrnxHeC6EKD6OG9BrTI8_AnoOq-SndWBsuq8yGM0=s120-c-rp-mo-br100',
+                rating: 5,
+                text: 'Working with Highend Interiors was a very great experience. 👍🏻'
+              },
+              {
+                name: 'aaKaSh',
+                avatar: 'https://lh3.googleusercontent.com/a-/ALV-UjVD3II2W1ZxPDg6N2J0tNiAsaCnNPOCTeAVe85x6LHlkmCF2l8=s120-c-rp-mo-br100',
+                rating: 5,
+                text: 'Excellent work by Gautam Vernekar and the Highend Interiors team. Clean design, premium finish, and great attention to detail!'
+              },
+              {
+                name: 'Milind Damle',
+                avatar: 'https://lh3.googleusercontent.com/a/ACg8ocI5lPrfYjd0KnVmiU0NRnYnDg5d-pE3czo95yEd2L-WCWWrDA=s120-c-rp-mo-br100',
+                rating: 5,
+                text: 'The work done by highend was with in a time given by them with perfection and no flaws. After a year of work they came for the small work also this was never expected because others don\'t. I am very satisfied with their work n will suggest to give a chance to them.'
+              },
+              {
+                name: 'Ashwini Kasekar',
+                avatar: 'https://lh3.googleusercontent.com/a-/ALV-UjXKIDIrvg7siVpHwO4Fr1esju8cagIVCt3Z4MQlJfOiigWZ3F4=s120-c-rp-mo-br100',
+                rating: 5,
+                text: 'Creative work.. With affordable rates.. Time to time work... Very professional... Thanks'
+              },
+              {
+                name: 'Urvi Pantoji',
+                avatar: 'https://lh3.googleusercontent.com/a/ACg8ocLZgN5pQBlB1UjdsSScnF6YA_DyASbNb-2qXNb8leudH4eU_g=s120-c-rp-mo-br100',
+                rating: 5,
+                text: 'Amazing work! The entire process from planning to execution is smooth and well managed. The designs were modern, elegant, and practical. Highly recommended'
+              }
+            ].map((review, index) => (
+              <div key={index} className="col-lg-4 col-md-6" data-animation="animate__fadeInUp">
+                <div className="review-card bg-white p-3 p-md-4 rounded h-100">
+                  <div className="d-flex align-items-center mb-3">
+                    <img src={review.avatar} alt={review.name} className="rounded-circle me-3" style={{width: '50px', height: '50px', objectFit: 'cover'}} />
+                    <div>
+                      <h6 className="mb-1">{review.name}</h6>
+                      <div className="text-warning" style={{fontSize: '0.9rem'}}>{Array(review.rating).fill('⭐').join('')}</div>
+                    </div>
+                  </div>
+                  <p className="review-text text-muted mb-0" style={{fontSize: '0.95rem', lineHeight: '1.5'}}>{review.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
             <a href="https://maps.app.goo.gl/YraiHXFWgaJHuPpS6" target="_blank" rel="noopener noreferrer" className="btn btn-outline-primary">
               View All Google Reviews
             </a>

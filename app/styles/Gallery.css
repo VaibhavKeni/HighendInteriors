@@ -473,8 +473,8 @@
 .main-image-container {
   position: relative;
   border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 1rem;
+  overflow: visible;
+  margin-bottom: 2rem;
   height: 420px;
   background: #111;
 }
@@ -484,12 +484,12 @@
   height: 100%;
   object-fit: contain;
   animation: fadeIn 0.3s ease-out;
+  border-radius: 12px;
 }
 
 .nav-btn {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 200px;
   background: rgba(212, 175, 55, 0.85);
   border: none;
   color: white;
@@ -508,11 +508,11 @@
 
 .nav-btn:hover {
   background: #d4af37;
-  transform: translateY(-50%) scale(1.1);
+  transform: scale(1.1);
 }
 
-.prev-btn { left: 1rem; }
-.next-btn { right: 1rem; }
+.prev-btn { left: 7%; }
+.next-btn { right: 7%; }
 
 .thumbnail-gallery {
   display: grid;
@@ -521,6 +521,27 @@
   padding: 0.75rem;
   background: #111;
   border-radius: 10px;
+  max-height: 120px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.thumbnail-gallery::-webkit-scrollbar {
+  width: 6px;
+}
+
+.thumbnail-gallery::-webkit-scrollbar-track {
+  background: #222;
+  border-radius: 10px;
+}
+
+.thumbnail-gallery::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 10px;
+}
+
+.thumbnail-gallery::-webkit-scrollbar-thumb:hover {
+  background: #b8941f;
 }
 
 .thumbnail {

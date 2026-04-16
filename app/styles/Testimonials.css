@@ -202,3 +202,29 @@
     font-size: 1rem;
   }
 }
+
+
+/* Home Page Review Cards */
+.review-card {
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  border-color: #d4af37;
+}
+
+.review-card h6 {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.review-text {
+  font-size: 0.9rem !important;
+  line-height: 1.6;
+  color: #666;
+}
