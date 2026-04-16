@@ -26,14 +26,7 @@
       "date": "March 2026",
       "url": "https://www.google.com/maps/contrib/106112128508171985495"
     },
-    {
-      "name": "sandeep mandhare",
-      "avatar": "https://lh3.googleusercontent.com/a/ACg8ocJuJAroUKknv_8lzJvUoaPjwISCnzh_KaiAC-8jQ2c3IbzDjQ=s120-c-rp-mo-br100",
-      "rating": 5,
-      "text": "",
-      "date": "March 2026",
-      "url": "https://www.google.com/maps/contrib/110526207255656464034"
-    },
+    
     {
       "name": "Milind Damle",
       "avatar": "https://lh3.googleusercontent.com/a/ACg8ocI5lPrfYjd0KnVmiU0NRnYnDg5d-pE3czo95yEd2L-WCWWrDA=s120-c-rp-mo-br100",
@@ -49,14 +42,6 @@
       "text": "Creative work.. With affordable rates.. Time to time work... Very professional... Thanks",
       "date": "March 2026",
       "url": "https://www.google.com/maps/contrib/102561401627589636174"
-    },
-    {
-      "name": "Sahil Shetty",
-      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjXjH8fKcGGG9njcAseX9XG3h4BcDebCspWCvtj_rqPKfblgcp94=s120-c-rp-mo-br100",
-      "rating": 5,
-      "text": "",
-      "date": "March 2026",
-      "url": "https://www.google.com/maps/contrib/107085787638944058224"
     },
     {
       "name": "Urvi Pantoji",
@@ -161,6 +146,22 @@
       "text": "I recently got my home interiors done by HIGH END Interiors, and I am extremely happy with the results. From the initial design discussion to the final execution, their team was very professional, creative, and detail-oriented. They understood exactly what I wanted and transformed my ideas into a beautiful and functional living space. The quality of materials, finishing, and overall design exceeded my expectations. They also completed the project on time and kept me informed throughout the process. If you are looking for reliable and stylish interior design services, I highly recommend HIGH END Interiors. They truly bring your dream home to life!",
       "date": "March 2026",
       "url": "https://www.google.com/maps/contrib/101146032922397853230"
+    },
+    {
+      "name": "Sahil Shetty",
+      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjXjH8fKcGGG9njcAseX9XG3h4BcDebCspWCvtj_rqPKfblgcp94=s120-c-rp-mo-br100",
+      "rating": 5,
+      "text": "",
+      "date": "March 2026",
+      "url": "https://www.google.com/maps/contrib/107085787638944058224"
+    },
+    {
+      "name": "sandeep mandhare",
+      "avatar": "https://lh3.googleusercontent.com/a/ACg8ocJuJAroUKknv_8lzJvUoaPjwISCnzh_KaiAC-8jQ2c3IbzDjQ=s120-c-rp-mo-br100",
+      "rating": 5,
+      "text": "",
+      "date": "March 2026",
+      "url": "https://www.google.com/maps/contrib/110526207255656464034"
     }
   ],
   "fetchedAt": "2026-04-16T05:29:00.000Z"
