@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     // Send to admin
     await transporter.sendMail({
       from: process.env.GMAIL_USER,
-      to: 'vaibhavkeni21@gmail.com',
+      to: 'highendinteriors9@gmail.com',
       replyTo: email,
       subject: `New Quote Request from ${name}`,
       html: emailContent,

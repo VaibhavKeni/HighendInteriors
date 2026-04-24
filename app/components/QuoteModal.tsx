@@ -46,7 +46,7 @@ export default function QuoteModal({ show, onClose }: QuoteModalProps) {
       }
     } catch (error) {
       setIsLoading(false)
-      const mailtoLink = `mailto:vaibhavkeni21@gmail.com?subject=Quote Request from ${name}&body=Name: ${name}%0AEmail: ${email}%0APhone: ${phone}%0A%0AMessage:%0A${message}`
+      const mailtoLink = `mailto:highendinteriors9@gmail.com?subject=Quote Request from ${name}&body=Name: ${name}%0AEmail: ${email}%0APhone: ${phone}%0A%0AMessage:%0A${message}`
       window.location.href = mailtoLink
       setStatusModal({ show: true, type: 'success', message: 'Opening email client...' })
       setFormData({ name: '', email: '', phone: '', message: '' })
