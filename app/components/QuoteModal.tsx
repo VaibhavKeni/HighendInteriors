@@ -18,43 +18,21 @@ export default function QuoteModal({ show, onClose }: QuoteModalProps) {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const sendEmail = async (e: React.FormEvent) => {
+  const sendEmail = (e: React.FormEvent) => {
     e.preventDefault()
     const { name, email, phone, message } = formData
     if (!name || !email || !phone || !message) {
       setStatusModal({ show: true, type: 'error', message: 'Please fill all fields' })
       return
     }
-    setIsLoading(true)
-    try {
-      const response = await fetch('/api/send-quote', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, message })
-      })
-      const data = await response.json()
-      setIsLoading(false)
-      if (data.success) {
-        setStatusModal({ show: true, type: 'success', message: 'Quote sent successfully!' })
-        setFormData({ name: '', email: '', phone: '', message: '' })
-        setTimeout(() => {
-          setStatusModal({ show: false, type: '', message: '' })
-          onClose()
-        }, 2000)
-      } else {
-        setStatusModal({ show: true, type: 'error', message: 'Failed to send quote' })
-      }
-    } catch (error) {
-      setIsLoading(false)
-      const mailtoLink = `mailto:highendinteriors9@gmail.com?subject=Quote Request from ${name}&body=Name: ${name}%0AEmail: ${email}%0APhone: ${phone}%0A%0AMessage:%0A${message}`
-      window.location.href = mailtoLink
-      setStatusModal({ show: true, type: 'success', message: 'Opening email client...' })
-      setFormData({ name: '', email: '', phone: '', message: '' })
-      setTimeout(() => {
-        setStatusModal({ show: false, type: '', message: '' })
-        onClose()
-      }, 2000)
-    }
+    const mailtoLink = `mailto:highendinteriors9@gmail.com?subject=Quote Request from ${name}&body=Name: ${name}%0AEmail: ${email}%0APhone: ${phone}%0A%0AMessage:%0A${message}`
+    window.location.href = mailtoLink
+    setStatusModal({ show: true, type: 'success', message: 'Opening email client...' })
+    setFormData({ name: '', email: '', phone: '', message: '' })
+    setTimeout(() => {
+      setStatusModal({ show: false, type: '', message: '' })
+      onClose()
+    }, 2000)
   }
 
   const handleSubmit = (e: React.FormEvent) => {

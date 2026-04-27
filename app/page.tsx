@@ -26,36 +26,13 @@ export default function Home() {
       setStatusModal({ show: true, type: 'error', message: 'Please fill all fields' })
       return
     }
-    setIsLoading(true)
-    try {
-      const response = await fetch('/api/send-callback', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email: dreamFormData.email, phone, floorPlan, budget })
-      })
-      const data = await response.json()
-      setIsLoading(false)
-      if (data.success) {
-        setStatusModal({ show: true, type: 'success', message: 'Callback request sent successfully!' })
-        setDreamFormData({ name: '', email: '', phone: '', floorPlan: '', budget: '' })
-        setTimeout(() => {
-          setStatusModal({ show: false, type: '', message: '' })
-        }, 3000)
-      } else {
-        setStatusModal({ show: true, type: 'error', message: 'Failed to send callback request' })
-      }
-    } catch (error) {
-      setIsLoading(false)
-      // Fallback: Send via WhatsApp
-      const whatsappNumber = '919867818123'
-      const text = `Hi, I want to book a callback.%0AName: ${name}%0APhone: ${phone}%0AFloor Plan: ${floorPlan}%0ABudget: ${budget}`
-      window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank')
-      setStatusModal({ show: true, type: 'success', message: 'Opening WhatsApp...' })
-      setDreamFormData({ name: '', email: '', phone: '', floorPlan: '', budget: '' })
-      setTimeout(() => {
-        setStatusModal({ show: false, type: '', message: '' })
-      }, 2000)
-    }
+    const mailtoLink = `mailto:highendinteriors9@gmail.com?subject=${encodeURIComponent(`Callback Request from ${name}`)}&body=${encodeURIComponent(`Name: ${name}\nPhone: ${phone}\nFloor Plan: ${floorPlan}\nBudget: ${budget}`)}`
+    window.location.href = mailtoLink
+    setStatusModal({ show: true, type: 'success', message: 'Opening email client...' })
+    setDreamFormData({ name: '', email: '', phone: '', floorPlan: '', budget: '' })
+    setTimeout(() => {
+      setStatusModal({ show: false, type: '', message: '' })
+    }, 2000)
   }
 
   useEffect(() => {

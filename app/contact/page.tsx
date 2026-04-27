@@ -33,41 +33,20 @@ export default function Contact() {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const { name, email, phone, subject, message } = formData
     if (!name || !email || !phone || !subject || !message) {
       setStatusModal({ show: true, type: 'error', message: 'Please fill all fields' })
       return
     }
-    setIsLoading(true)
-    try {
-      const response = await fetch('/api/send-contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, subject, message })
-      })
-      const data = await response.json()
-      setIsLoading(false)
-      if (data.success) {
-        setStatusModal({ show: true, type: 'success', message: 'Message sent successfully!' })
-        setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
-        setTimeout(() => {
-          setStatusModal({ show: false, type: '', message: '' })
-        }, 3000)
-      } else {
-        setStatusModal({ show: true, type: 'error', message: 'Failed to send message' })
-      }
-    } catch (error) {
-      setIsLoading(false)
-      const mailtoLink = `mailto:highendinteriors9@gmail.com?subject=${subject}&body=Name: ${name}%0AEmail: ${email}%0APhone: ${phone}%0A%0AMessage:%0A${message}`
-      window.location.href = mailtoLink
-      setStatusModal({ show: true, type: 'success', message: 'Opening email client...' })
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
-      setTimeout(() => {
-        setStatusModal({ show: false, type: '', message: '' })
-      }, 2000)
-    }
+    const mailtoLink = `mailto:highendinteriors9@gmail.com?subject=${encodeURIComponent(subject)} - ${encodeURIComponent(name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`)}`
+    window.location.href = mailtoLink
+    setStatusModal({ show: true, type: 'success', message: 'Opening email client...' })
+    setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
+    setTimeout(() => {
+      setStatusModal({ show: false, type: '', message: '' })
+    }, 2000)
   }
 
   const contactInfo = [
