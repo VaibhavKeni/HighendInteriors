@@ -10,7 +10,6 @@ interface QuoteModalProps {
 
 export default function QuoteModal({ show, onClose }: QuoteModalProps) {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' })
-  const [isLoading, setIsLoading] = useState(false)
   const [statusModal, setStatusModal] = useState({ show: false, type: '', message: '' })
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -76,10 +75,8 @@ export default function QuoteModal({ show, onClose }: QuoteModalProps) {
                     <textarea name="message" className="form-control" rows={5} placeholder="Your Message" value={formData.message} onChange={handleFormChange}></textarea>
                   </div>
                   <div className="d-flex gap-2">
-                    <button type="button" onClick={sendEmail} disabled={isLoading} className="btn btn-primary flex-grow-1">
-                      {isLoading ? <><span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Sending...</> : 'Send via Email'}
-                    </button>
-                    <button type="submit" disabled={isLoading} className="btn btn-success flex-grow-1">Send via WhatsApp</button>
+                    <button type="button" onClick={sendEmail} className="btn btn-primary flex-grow-1">Send via Email</button>
+                    <button type="submit" className="btn btn-success flex-grow-1">Send via WhatsApp</button>
                   </div>
                 </form>
               </div>

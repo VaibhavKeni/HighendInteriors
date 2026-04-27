@@ -11,7 +11,6 @@ import ReviewRequest from '@/app/components/ReviewRequest'
 export default function Home() {
   const [showQuoteModal, setShowQuoteModal] = useState(false)
   const [dreamFormData, setDreamFormData] = useState({ name: '', email: '', phone: '', floorPlan: '', budget: '' })
-  const [isLoading, setIsLoading] = useState(false)
   const [statusModal, setStatusModal] = useState({ show: false, type: '', message: '' })
 
   const handleDreamFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -337,8 +336,8 @@ export default function Home() {
                       <option value="More than 25 Lakhs">More than 25 Lakhs</option>
                     </select>
                   </div>
-                  <button type="submit" disabled={isLoading} className="btn btn-primary w-100 design-btn mb-3">
-                    {isLoading ? 'Sending...' : 'BOOK NOW'}
+                  <button type="submit" className="btn btn-primary w-100 design-btn mb-3">
+                    BOOK NOW
                   </button>
                   <p className="design-privacy-text text-center">✅ We respect your privacy. No spam ever.</p>
                 </form>

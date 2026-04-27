@@ -16,7 +16,6 @@ export default function Contact() {
     message: ''
   })
   const [showQuoteModal, setShowQuoteModal] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
   const [statusModal, setStatusModal] = useState({ show: false, type: '', message: '' })
 
   useEffect(() => {
@@ -188,8 +187,8 @@ export default function Contact() {
                   ></textarea>
                 </div>
 
-                <button type="submit" disabled={isLoading} className="btn btn-primary btn-submit">
-                  <i className="fas fa-paper-plane me-2"></i>{isLoading ? 'Sending...' : 'Send Message'}
+                <button type="submit" className="btn btn-primary btn-submit">
+                  <i className="fas fa-paper-plane me-2"></i>Send Message
                 </button>
 
                 {statusModal.show && (
