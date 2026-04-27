@@ -39,13 +39,30 @@ export default function Contact() {
       setStatusModal({ show: true, type: 'error', message: 'Please fill all fields' })
       return
     }
-    const mailtoLink = `mailto:highendinteriors9@gmail.com?subject=${encodeURIComponent(subject)} - ${encodeURIComponent(name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`)}`
-    window.location.href = mailtoLink
-    setStatusModal({ show: true, type: 'success', message: 'Opening email client...' })
-    setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
-    setTimeout(() => {
-      setStatusModal({ show: false, type: '', message: '' })
-    }, 2000)
+    fetch('/api/send-contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, phone, subject, message })
+    })
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
+      return res.json()
+    })
+    .then(data => {
+      if (data.success) {
+        setStatusModal({ show: true, type: 'success', message: 'Message sent successfully!' })
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
+        setTimeout(() => {
+          setStatusModal({ show: false, type: '', message: '' })
+        }, 2000)
+      } else {
+        setStatusModal({ show: true, type: 'error', message: data.message || 'Failed to send message' })
+      }
+    })
+    .catch(err => {
+      console.error('Error:', err)
+      setStatusModal({ show: true, type: 'error', message: `Error: ${err.message}` })
+    })
   }
 
   const contactInfo = [
@@ -192,17 +209,53 @@ export default function Contact() {
                 </button>
 
                 {statusModal.show && (
-                  <div className="status-message" style={{
-                    marginTop: '1rem',
-                    padding: '1rem',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    backgroundColor: statusModal.type === 'success' ? '#d4edda' : '#f8d7da',
-                    color: statusModal.type === 'success' ? '#155724' : '#721c24',
-                    border: `1px solid ${statusModal.type === 'success' ? '#c3e6cb' : '#f5c6cb'}`
+                  <div className="modal-backdrop show" style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    background: 'rgba(0, 0, 0, 0.7)',
+                    zIndex: 1060,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
                   }}>
-                    <i className={`fas ${statusModal.type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}`} style={{ marginRight: '0.5rem' }}></i>
-                    <span>{statusModal.message}</span>
+                    <div className="modal show" style={{
+                      position: 'fixed',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      zIndex: 1070,
+                      width: '90%',
+                      maxWidth: '380px',
+                      background: 'white',
+                      borderRadius: '20px',
+                      boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)'
+                    }}>
+                      <div style={{
+                        padding: '2rem',
+                        textAlign: 'center'
+                      }}>
+                        <div style={{ marginBottom: '1rem' }}>
+                          {statusModal.type === 'success' ? (
+                            <i className="fas fa-check-circle" style={{fontSize: '3rem', color: '#28a745'}}></i>
+                          ) : (
+                            <i className="fas fa-exclamation-circle" style={{fontSize: '3rem', color: '#dc3545'}}></i>
+                          )}
+                        </div>
+                        <p style={{fontSize: '1.15rem', color: '#333', marginBottom: '1.5rem'}}>{statusModal.message}</p>
+                        <button type="button" className="btn btn-primary" onClick={() => setStatusModal({ show: false, type: '', message: '' })} style={{
+                          padding: '0.85rem 2.5rem',
+                          background: 'linear-gradient(135deg, #d4af37 0%, #b8941f 100%)',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '12px',
+                          cursor: 'pointer',
+                          fontWeight: '600'
+                        }}>Close</button>
+                      </div>
+                    </div>
                   </div>
                 )}
               </form>

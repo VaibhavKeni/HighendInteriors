@@ -24,14 +24,31 @@ export default function QuoteModal({ show, onClose }: QuoteModalProps) {
       setStatusModal({ show: true, type: 'error', message: 'Please fill all fields' })
       return
     }
-    const mailtoLink = `mailto:highendinteriors9@gmail.com?subject=Quote Request from ${name}&body=Name: ${name}%0AEmail: ${email}%0APhone: ${phone}%0A%0AMessage:%0A${message}`
-    window.location.href = mailtoLink
-    setStatusModal({ show: true, type: 'success', message: 'Opening email client...' })
-    setFormData({ name: '', email: '', phone: '', message: '' })
-    setTimeout(() => {
-      setStatusModal({ show: false, type: '', message: '' })
-      onClose()
-    }, 2000)
+    fetch('/api/send-quote', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, phone, message })
+    })
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
+      return res.json()
+    })
+    .then(data => {
+      if (data.success) {
+        setStatusModal({ show: true, type: 'success', message: 'Quote request sent successfully!' })
+        setFormData({ name: '', email: '', phone: '', message: '' })
+        setTimeout(() => {
+          setStatusModal({ show: false, type: '', message: '' })
+          onClose()
+        }, 2000)
+      } else {
+        setStatusModal({ show: true, type: 'error', message: data.message || 'Failed to send quote' })
+      }
+    })
+    .catch(err => {
+      console.error('Error:', err)
+      setStatusModal({ show: true, type: 'error', message: `Error: ${err.message}` })
+    })
   }
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -86,8 +103,8 @@ export default function QuoteModal({ show, onClose }: QuoteModalProps) {
       </div>
 
       {statusModal.show && (
-        <div className="modal-backdrop show" style={{display: 'block'}}>
-          <div className="modal show" style={{display: 'block'}}>
+        <div className="modal-backdrop show" style={{display: 'block', zIndex: 1060}}>
+          <div className="modal show" style={{display: 'block', zIndex: 1070}}>
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content">
                 <div className="modal-body text-center py-4 py-md-5">

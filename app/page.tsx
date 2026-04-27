@@ -25,13 +25,30 @@ export default function Home() {
       setStatusModal({ show: true, type: 'error', message: 'Please fill all fields' })
       return
     }
-    const mailtoLink = `mailto:highendinteriors9@gmail.com?subject=${encodeURIComponent(`Callback Request from ${name}`)}&body=${encodeURIComponent(`Name: ${name}\nPhone: ${phone}\nFloor Plan: ${floorPlan}\nBudget: ${budget}`)}`
-    window.location.href = mailtoLink
-    setStatusModal({ show: true, type: 'success', message: 'Opening email client...' })
-    setDreamFormData({ name: '', email: '', phone: '', floorPlan: '', budget: '' })
-    setTimeout(() => {
-      setStatusModal({ show: false, type: '', message: '' })
-    }, 2000)
+    fetch('/api/send-callback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email: dreamFormData.email, phone, floorPlan, budget })
+    })
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
+      return res.json()
+    })
+    .then(data => {
+      if (data.success) {
+        setStatusModal({ show: true, type: 'success', message: 'Callback request sent successfully!' })
+        setDreamFormData({ name: '', email: '', phone: '', floorPlan: '', budget: '' })
+        setTimeout(() => {
+          setStatusModal({ show: false, type: '', message: '' })
+        }, 2000)
+      } else {
+        setStatusModal({ show: true, type: 'error', message: data.message || 'Failed to send request' })
+      }
+    })
+    .catch(err => {
+      console.error('Error:', err)
+      setStatusModal({ show: true, type: 'error', message: `Error: ${err.message}` })
+    })
   }
 
   useEffect(() => {
@@ -410,8 +427,8 @@ export default function Home() {
       )}
 
       {statusModal.show && (
-        <div className="modal-backdrop show" style={{display: 'block'}}>
-          <div className="modal show" style={{display: 'block'}}>
+        <div className="modal-backdrop show" style={{display: 'block', zIndex: 1060}}>
+          <div className="modal show" style={{display: 'block', zIndex: 1070}}>
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content">
                 <div className="modal-body text-center py-4 py-md-5">

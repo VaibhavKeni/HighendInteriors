@@ -13,6 +13,10 @@
   backdrop-filter: blur(4px);
 }
 
+.modal-backdrop:last-of-type {
+  z-index: 1060 !important;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -33,6 +37,10 @@
   animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   margin: 0 !important;
   padding: 0 !important;
+}
+
+.modal-backdrop:last-of-type ~ .modal {
+  z-index: 1070 !important;
 }
 
 @keyframes slideUp {
