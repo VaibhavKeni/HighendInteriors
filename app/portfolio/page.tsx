@@ -161,8 +161,9 @@ export default function Portfolio() {
                     <button 
                       className="view-project-btn"
                       onClick={() => setSelectedProject(project)}
+                      aria-label={`View details for ${project.title} interior design project`}
                     >
-                      View Project
+                      View {project.title} Project
                     </button>
                   </div>
                 </div>

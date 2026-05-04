@@ -97,7 +97,7 @@ export default function Reviews() {
               rel="noopener noreferrer"
               className="btn btn-primary"
             >
-              <i className="fab fa-google me-2"></i>Write a Review on Google
+              <i className="fab fa-google me-2"></i>Write a Review on Google for HIGH END Interiors
             </a>
           </div>
         </div>
@@ -156,7 +156,7 @@ export default function Reviews() {
               rel="noopener noreferrer"
               className="btn btn-primary"
             >
-              <i className="fab fa-google me-2"></i>View All Reviews on Google
+              <i className="fab fa-google me-2"></i>View All Reviews on Google for HIGH END Interiors
             </a>
           </div>
         </div>

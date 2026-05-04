@@ -297,6 +297,22 @@ export default function Gallery() {
         '/assets/images/Highend Interiors/Residential-13/IMG-20260410-WA0127.jpg',
         '/assets/images/Highend Interiors/Residential-13/IMG-20260410-WA0132.jpg'
       ]
+    },
+    'Residential-14': {
+      name: 'Residential-14',
+      category: 'residential',
+      images: [
+        '/assets/images/Highend Interiors/Residential-14/IMG-20260410-WA0161.jpg',
+        '/assets/images/Highend Interiors/Residential-14/IMG-20260410-WA0162.jpg',
+        '/assets/images/Highend Interiors/Residential-14/IMG-20260410-WA0163.jpg',
+        '/assets/images/Highend Interiors/Residential-14/IMG-20260410-WA0164.jpg',
+        '/assets/images/Highend Interiors/Residential-14/IMG-20260410-WA0165.jpg',
+        '/assets/images/Highend Interiors/Residential-14/IMG-20260410-WA0166.jpg',
+        '/assets/images/Highend Interiors/Residential-14/IMG-20260410-WA0167.jpg',
+        '/assets/images/Highend Interiors/Residential-14/IMG-20260410-WA0168.jpg',
+        '/assets/images/Highend Interiors/Residential-14/IMG-20260410-WA0169.jpg',
+        '/assets/images/Highend Interiors/Residential-14/IMG-20260410-WA0170.jpg'
+      ]
     }
   }
 

@@ -110,7 +110,7 @@ export default function Home() {
                 <li className="section-list-item mb-2"><i className="fas fa-check text-primary me-2"></i>Timely Project Delivery</li>
                 <li className="section-list-item mb-2"><i className="fas fa-check text-primary me-2"></i>End-to-End Execution</li>
               </ul>
-              <a href="/about" className="btn btn-primary mt-3">Learn More</a>
+              <a href="/about" className="btn btn-primary mt-3">Learn More About Our Interior Design Services</a>
             </div>
           </div>
         </div>
@@ -294,7 +294,7 @@ export default function Home() {
 
           <div className="text-center">
             <a href="https://maps.app.goo.gl/YraiHXFWgaJHuPpS6" target="_blank" rel="noopener noreferrer" className="btn btn-outline-primary">
-              View All Google Reviews
+              View All Google Reviews for HIGH END Interiors
             </a>
           </div>
         </div>

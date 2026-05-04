@@ -166,8 +166,9 @@ export default function Services() {
                     <button 
                       className="view-details-btn"
                       onClick={() => setSelectedService(service)}
+                      aria-label={`View details for ${service.title} interior design service`}
                     >
-                      View Details
+                      View {service.title} Details
                     </button>
                   </div>
                 </div>
