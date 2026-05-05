@@ -56,15 +56,15 @@ export default function Reviews() {
       <Navbar onQuoteClick={() => setShowQuoteModal(true)} />
       <QuoteModal show={showQuoteModal} onClose={() => setShowQuoteModal(false)} />
 
-      <div className="reviews-header">
+      {/* <div className="reviews-header">
         <div className="header-content">
           <h1>Client Reviews & Testimonials</h1>
           <p>See what our satisfied clients have to say about us</p>
         </div>
-      </div>
+      </div> */}
 
       {/* About Reviews Section */}
-      <section className="about-reviews-section">
+      {/* <section className="about-reviews-section">
         <div className="container">
           <div className="about-reviews-content">
             <h2>Why Our Clients Love Us</h2>
@@ -91,7 +91,7 @@ export default function Reviews() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <div className="reviews-header">
         <div className="header-content">

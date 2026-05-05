@@ -13,52 +13,92 @@
 .about-reviews-content h2 {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #333;
-  margin-bottom: 1.5rem;
+  color: #1a1a1a;
+  margin-bottom: 2rem;
   letter-spacing: -0.5px;
+  text-align: center;
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.about-reviews-content h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #d4af37 0%, #b8941f 100%);
+  border-radius: 2px;
 }
 
 .about-reviews-content p {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   line-height: 1.8;
   color: #555;
   margin-bottom: 1.5rem;
   text-align: justify;
+  letter-spacing: 0.3px;
+}
+
+.about-reviews-content p:first-of-type {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.about-reviews-content p:last-of-type {
+  margin-bottom: 2.5rem;
 }
 
 .review-highlights {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e0e0e0;
 }
 
 .highlight-item {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding: 1.5rem;
   background: white;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left: 4px solid #d4af37;
 }
 
 .highlight-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(212, 175, 55, 0.15);
+  border-left-color: #b8941f;
 }
 
 .highlight-item i {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: #d4af37;
   flex-shrink: 0;
+  margin-top: 0.25rem;
+  transition: all 0.3s ease;
+}
+
+.highlight-item:hover i {
+  color: #b8941f;
+  transform: scale(1.1);
 }
 
 .highlight-item span {
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: #333;
-  font-weight: 500;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
 }
 
 /* Stats Section */
@@ -270,9 +310,9 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .about-reviews-content h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
   .about-reviews-content p {
@@ -280,12 +320,91 @@
   }
 
   .review-highlights {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .about-reviews-section {
+    padding: 3rem 1rem;
+  }
+
+  .about-reviews-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-reviews-content h2::after {
+    width: 60px;
+  }
+
+  .about-reviews-content p {
+    font-size: 1rem;
+    text-align: left;
+    line-height: 1.7;
+  }
+
+  .review-highlights {
     grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+  }
+
+  .highlight-item {
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+
+  .highlight-item i {
+    font-size: 1.5rem;
+  }
+
+  .highlight-item span {
+    font-size: 1rem;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-reviews-section {
+    padding: 2rem 0.75rem;
+  }
+
+  .about-reviews-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .about-reviews-content p {
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .review-highlights {
+    gap: 0.75rem;
+  }
+
+  .highlight-item {
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .highlight-item i {
+    font-size: 1.3rem;
+  }
+
+  .highlight-item span {
+    font-size: 0.95rem;
   }
 
   .google-banner {
     flex-direction: column;
     text-align: center;
+    padding: 1.5rem;
   }
 
   .google-banner-left {
@@ -296,7 +415,15 @@
     grid-template-columns: 1fr;
   }
 
+  .stat-card {
+    padding: 1.5rem;
+  }
+
   .stat-value {
-    font-size: 2rem;
+    font-size: 1.75rem;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
   }
 }
