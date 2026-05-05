@@ -51,11 +51,29 @@ export default function Footer() {
               </li>
               <li>
                 <Link 
+                  href="/portfolio" 
+                  className="text-white-50"
+                  onClick={handleNavClick}
+                >
+                  Portfolio
+                </Link>
+              </li>
+              <li>
+                <Link 
                   href="/gallery" 
                   className="text-white-50"
                   onClick={handleNavClick}
                 >
                   Gallery
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/testimonials" 
+                  className="text-white-50"
+                  onClick={handleNavClick}
+                >
+                  Testimonials
                 </Link>
               </li>
               <li>
@@ -159,6 +177,16 @@ export default function Footer() {
               </Link>
             ))}
           </div>
+        </div>
+        <hr className="my-3 my-md-4" />
+        <div className="legal-links text-center mb-3 mb-md-4">
+          <Link href="/privacy-policy" className="text-white-50 me-3" onClick={handleNavClick}>
+            Privacy Policy
+          </Link>
+          <span className="text-white-50 me-3">|</span>
+          <Link href="/terms" className="text-white-50" onClick={handleNavClick}>
+            Terms & Conditions
+          </Link>
         </div>
         <hr className="my-3 my-md-4" />
         <div className="text-center">

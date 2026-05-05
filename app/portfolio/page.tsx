@@ -67,7 +67,7 @@ export default function Portfolio() {
       id: 4,
       title: 'Boutique Hotel Design',
       category: 'Commercial',
-      image: 'https://images.unsplash.com/photo-1631049307038-da0ec9d70304?w=800&q=80',
+      image: '/assets/images/portfolio-hotel.jpg',
       description: 'Elegant boutique hotel with 20 rooms, restaurant, and lounge areas.',
       location: 'Fort, Mumbai',
       duration: '6 months',
