@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'animate.css'
 import './styles/globals.css'
 import BackToTop from './components/BackToTop'
-import { CANONICAL_URLS } from './lib/canonicalUrls'
 
 export const metadata: Metadata = {
   title: 'Best Interior Designer in Mumbai | HIGHEND Interiors',
@@ -12,10 +11,6 @@ export const metadata: Metadata = {
   authors: [{ name: 'HIGHEND Interiors' }],
   alternates: {
     canonical: 'https://highendinteriors.co.in/',
-    languages: Object.entries(CANONICAL_URLS).reduce((acc, [path, url]) => {
-      acc[path] = url
-      return acc
-    }, {} as Record<string, string>),
   },
   openGraph: {
     title: 'Best Interior Designer in Mumbai | HIGHEND Interiors',

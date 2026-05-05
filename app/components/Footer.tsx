@@ -104,16 +104,18 @@ export default function Footer() {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="btn btn-outline-light btn-sm"
+                aria-label="Follow HIGHEND Interiors on Instagram"
               >
-                Instagram
+                <i className="fab fa-instagram me-2"></i>Instagram
               </a>
               <a 
                 href="https://www.facebook.com/profile.php?id=100063596333131" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-outline-light btn-sm"
+                aria-label="Visit HIGHEND Interiors on Facebook"
               >
-                Facebook
+                <i className="fab fa-facebook me-2"></i>Facebook
               </a>
             </div>
           </div>

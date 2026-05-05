@@ -295,17 +295,21 @@ export default function Contact() {
           <h2>Follow Us</h2>
           <p>Stay updated with our latest projects and design inspiration</p>
           <div className="social-links">
-            <a href="https://www.instagram.com/highend_interiors9" target="_blank" rel="noopener noreferrer" className="social-btn instagram">
+            <a href="https://www.instagram.com/highend_interiors9" target="_blank" rel="noopener noreferrer" className="social-btn instagram" aria-label="Follow HIGHEND Interiors on Instagram">
               <i className="fab fa-instagram"></i>
+              <span className="sr-only">Instagram</span>
             </a>
-            <a href="https://www.facebook.com/profile.php?id=100063596333131" target="_blank" rel="noopener noreferrer" className="social-btn facebook">
+            <a href="https://www.facebook.com/profile.php?id=100063596333131" target="_blank" rel="noopener noreferrer" className="social-btn facebook" aria-label="Visit HIGHEND Interiors on Facebook">
               <i className="fab fa-facebook"></i>
+              <span className="sr-only">Facebook</span>
             </a>
-            <a href="https://wa.me/919867818123" target="_blank" rel="noopener noreferrer" className="social-btn whatsapp">
+            <a href="https://wa.me/919867818123" target="_blank" rel="noopener noreferrer" className="social-btn whatsapp" aria-label="Chat with HIGHEND Interiors on WhatsApp">
               <i className="fab fa-whatsapp"></i>
+              <span className="sr-only">WhatsApp</span>
             </a>
-            <a href="tel:+919867818123" className="social-btn phone">
+            <a href="tel:+919867818123" className="social-btn phone" aria-label="Call HIGHEND Interiors">
               <i className="fas fa-phone"></i>
+              <span className="sr-only">Phone</span>
             </a>
           </div>
         </div>

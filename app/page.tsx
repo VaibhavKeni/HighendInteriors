@@ -396,11 +396,11 @@ export default function Home() {
                 </div>
                 <div className="mb-3 mb-md-4">
                   <h5 className="contact-heading"><i className="fab fa-instagram text-primary me-2"></i>Instagram</h5>
-                  <p className="contact-text mb-0"><a href="https://www.instagram.com/highend_interiors9" target="_blank" rel="noopener noreferrer" className="text-primary">highend_interiors9</a></p>
+                  <p className="contact-text mb-0"><a href="https://www.instagram.com/highend_interiors9" target="_blank" rel="noopener noreferrer" className="text-primary">Follow us on Instagram @highend_interiors9</a></p>
                 </div>
                 <div className="mb-3 mb-md-4">
                   <h5 className="contact-heading"><i className="fab fa-facebook text-primary me-2"></i>Facebook</h5>
-                  <p className="contact-text mb-0"><a href="https://www.facebook.com/profile.php?id=100063596333131" target="_blank" rel="noopener noreferrer" className="text-primary">Proprietor-Gautam Vernekar- Highendinteriors</a></p>
+                  <p className="contact-text mb-0"><a href="https://www.facebook.com/profile.php?id=100063596333131" target="_blank" rel="noopener noreferrer" className="text-primary">Visit us on Facebook - HIGHEND Interiors</a></p>
                 </div>
               </div>
             </div>
