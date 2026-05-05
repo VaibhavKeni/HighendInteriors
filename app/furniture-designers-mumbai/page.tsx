@@ -1,5 +1,6 @@
 'use client'
 import SEOLandingPage from '@/app/components/SEOLandingPage'
+
 export default function Page() {
   return <SEOLandingPage
     keyword="Furniture Designers In Mumbai"
