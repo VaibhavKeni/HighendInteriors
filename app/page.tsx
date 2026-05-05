@@ -94,6 +94,8 @@ export default function Home() {
       <Navbar onQuoteClick={() => setShowQuoteModal(true)} />
       <CitiesSlider />
 
+      <h1 className="visually-hidden">Best Interior Designer in Mumbai | HIGHEND Interiors</h1>
+
       <section className="about-section py-4 py-md-5" id="about">
         <div className="container">
           <div className="row g-4 g-md-5 align-items-center">

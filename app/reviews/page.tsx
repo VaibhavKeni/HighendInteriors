@@ -63,6 +63,43 @@ export default function Reviews() {
         </div>
       </div>
 
+      {/* About Reviews Section */}
+      <section className="about-reviews-section">
+        <div className="container">
+          <div className="about-reviews-content">
+            <h2>Why Our Clients Love Us</h2>
+            <p>At HIGH END Interiors, we take pride in delivering exceptional interior design services that exceed our clients' expectations. With over 15 years of experience in the industry, we have successfully completed more than 500 projects across Mumbai, transforming ordinary spaces into extraordinary living experiences.</p>
+            <p>Our commitment to quality, innovation, and customer satisfaction has earned us a stellar reputation in the interior design industry. We believe in creating spaces that not only look beautiful but also function perfectly for our clients' lifestyle and needs.</p>
+            <p>Every project we undertake is a testament to our dedication to excellence. From the initial consultation to the final handover, we maintain transparent communication and ensure that our clients are involved in every decision-making process. Our team of expert designers and skilled craftsmen work collaboratively to bring your vision to life with precision and creativity.</p>
+            <div className="review-highlights">
+              <div className="highlight-item">
+                <i className="fas fa-check-circle"></i>
+                <span>Premium Quality Materials & Craftsmanship</span>
+              </div>
+              <div className="highlight-item">
+                <i className="fas fa-check-circle"></i>
+                <span>Personalized Design Solutions Tailored to Your Needs</span>
+              </div>
+              <div className="highlight-item">
+                <i className="fas fa-check-circle"></i>
+                <span>On-Time Project Delivery with Transparent Communication</span>
+              </div>
+              <div className="highlight-item">
+                <i className="fas fa-check-circle"></i>
+                <span>Comprehensive Warranty & After-Sales Support</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="reviews-header">
+        <div className="header-content">
+          <h1>Client Reviews & Testimonials</h1>
+          <p>See what our satisfied clients have to say about us</p>
+        </div>
+      </div>
+
       {/* Stats */}
       <section className="stats-section">
         <div className="container">
