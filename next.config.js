@@ -1,18 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  compress: true,
+  poweredByHeader: false,
+  generateEtags: true,
   devIndicators: {
     buildActivity: false,
     buildActivityPosition: 'bottom-right',
   },
   turbopack: {
     root: __dirname,
-  },
-  compress: true,
-  poweredByHeader: false,
-  generateEtags: true,
-  httpAgentOptions: {
-    keepAlive: true,
   },
   headers: async () => {
     return [
@@ -39,9 +36,27 @@ const nextConfig = {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin'
           },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
+          }
+        ],
+      },
+      {
+        source: '/api/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-cache, no-store, must-revalidate'
+          }
         ],
       },
     ]
+  },
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
 }
 
