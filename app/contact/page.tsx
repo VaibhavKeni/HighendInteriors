@@ -303,11 +303,11 @@ export default function Contact() {
               <i className="fab fa-facebook"></i>
               <span className="sr-only">Facebook</span>
             </a>
-            <a href="https://wa.me/919867818123" target="_blank" rel="noopener noreferrer" className="social-btn whatsapp" aria-label="Chat with HIGHEND Interiors on WhatsApp">
+            <a href="https://wa.me/918355888976" target="_blank" rel="noopener noreferrer" className="social-btn whatsapp" aria-label="Chat with HIGHEND Interiors on WhatsApp">
               <i className="fab fa-whatsapp"></i>
               <span className="sr-only">WhatsApp</span>
             </a>
-            <a href="tel:+919867818123" className="social-btn phone" aria-label="Call HIGHEND Interiors">
+            <a href="tel:+918355888976" className="social-btn phone" aria-label="Call HIGHEND Interiors">
               <i className="fas fa-phone"></i>
               <span className="sr-only">Phone</span>
             </a>

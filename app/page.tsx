@@ -100,7 +100,7 @@ export default function Home() {
         <div className="container">
           <div className="row g-4 g-md-5 align-items-center">
             <div className="col-lg-6" data-animation="animate__fadeInLeft">
-              <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" className="img-fluid rounded" alt="About" />
+              <img src="/assets/images/about-hero.jpg" className="img-fluid rounded" alt="About HIGHEND Interiors" loading="lazy" />
             </div>
             <div className="col-lg-6" data-animation="animate__fadeInRight">
               <h2 className="section-title mb-3 mb-md-4">About HIGH END Interiors</h2>
@@ -306,7 +306,7 @@ export default function Home() {
 
       <section className="design-dream-section py-4 py-md-5" id="design-dream">
         <div className="design-dream-bg">
-          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=80" alt="Luxury Living Room" className="design-dream-img" />
+          <img src="/assets/images/design-dream-bg.jpg" alt="Luxury Living Room" className="design-dream-img" loading="lazy" />
         </div>
         <div className="container position-relative" style={{zIndex: 2}}>
           <div className="row g-4 g-md-5">
