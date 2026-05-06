@@ -1,10 +1,7 @@
 import type { Metadata } from 'next'
-import dynamic from 'next/dynamic'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'animate.css'
 import './styles/globals.css'
-
-const BackToTop = dynamic(() => import('./components/BackToTop'), { ssr: false })
 
 export const metadata: Metadata = {
   title: 'Best Interior Designer in Mumbai | HIGHEND Interiors',
@@ -98,7 +95,6 @@ export default function RootLayout({
       </head>
       <body>
         {children}
-        <BackToTop />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
       </body>
     </html>
